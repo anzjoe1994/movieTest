@@ -1,0 +1,16 @@
+{
+    "serverError": {
+      "defaultError": "Unable to perform the action",
+      "internalServerError": "Something went wrong with the server",
+      "unauthorized": "Unauthorized access",
+      "forbidden": "Forbidden"
+    },
+    "dashboard": {
+      "title": "Country Finder",
+      "searchPlaceholder": "Search in Country/ Alternative Names",
+      "alternativeNames": "Alternative Names: ",
+      "noData": "No data found",
+      "region": "Region: ",
+      "nativeName": "Native Name: "
+    }
+  }
