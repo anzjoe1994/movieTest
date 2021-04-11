@@ -27,9 +27,9 @@ export default class Service {
 
   async getDashboardData() {
     try {
-      const data = await this.api.get(``, { y:"2021" });
+      const data = await this.api.get(``, { s:"Harry potter" });
       if (data.status == 200) {
-        return this.handleResponse(data);
+        return data?.data?.Search;
       } else {
         return this.handleParseError({ message: data.data, code: data.status });
       }
