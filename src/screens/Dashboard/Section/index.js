@@ -9,7 +9,7 @@ import { string } from "assets/strings";
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import {
     blackColor
-  } from "constants/Colors";
+} from "constants/Colors";
 import CellItem from '../CellItem'
 export function Section({ heading, array, navigation, isFetching }) {
     function renderItem({ item }) {
@@ -22,7 +22,7 @@ export function Section({ heading, array, navigation, isFetching }) {
             />
         )
     }
-    
+
     return (
         <View style={styles.section}>
             <Text style={styles.sectionHeader}>
@@ -38,6 +38,7 @@ export function Section({ heading, array, navigation, isFetching }) {
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 style={styles.listContainer}
+                contentContainerStyle={styles.contentContainerStyle}
                 data={array}
                 renderItem={(item) => renderItem(item)}
                 keyExtractor={(item) => item.imdbID.toString()}
@@ -81,5 +82,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         alignSelf: 'center',
         marginTop: 100
+    },
+    contentContainerStyle: {
+        paddingRight: 16
     }
 });
