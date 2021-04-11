@@ -7,10 +7,8 @@
     },
     "dashboard": {
       "title": "Country Finder",
-      "searchPlaceholder": "Search in Country/ Alternative Names",
-      "alternativeNames": "Alternative Names: ",
-      "noData": "No data found",
-      "region": "Region: ",
-      "nativeName": "Native Name: "
+      "searchPlaceholder": "Search a movie/ Alternative Names",
+      "batman": "Watch Batman movies",
+      "noData": "No data found"
     }
   }
