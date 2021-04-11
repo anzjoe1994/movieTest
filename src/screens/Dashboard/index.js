@@ -3,69 +3,75 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   StyleSheet,
   View,
-  TouchableOpacity,
   Text,
   TextInput,
-  FlatList
+  ScrollView
 } from "react-native";
 import { connect } from "react-redux";
 
-import { fetchDashboardDataIfNeeded } from "action/dashboardAction";
+import { 
+  fetchDashboardSectionOneDataIfNeeded, 
+  fetchDashboardSectionTwoDataIfNeeded, 
+  fetchDashboardSectionThreeDataIfNeeded  
+} from "action/dashboardAction";
 import { string } from "assets/strings";
 import {
   white,
   windowBackgroundGrey,
+  blackColor
 } from "constants/Colors";
-import { blackColor } from "../../constants/Colors";
+import { Section } from "./Section";
 
 
 function Dashboard({
   dispatch,
-  navigation, isFetching,
-  movieArray }) {
+  navigation,
+  isSectionOneFetching,
+  sectionOneArray,
+  isSectionTwoFetching,
+  sectionTwoArray,
+  isSectionThreeFetching,
+  sectionThreeArray
+}) {
   const insets = useSafeAreaInsets();
   const [searchText, setSearchText] = React.useState("");
 
 
   React.useEffect(() => {
-    dispatch(fetchDashboardDataIfNeeded());
+    dispatch(fetchDashboardSectionOneDataIfNeeded('batman'));
+    dispatch(fetchDashboardSectionTwoDataIfNeeded('harry potter'));
+    dispatch(fetchDashboardSectionThreeDataIfNeeded('james bond'));
   }, []);
-  function renderItem({ item }) {
-    return (
-      <CellItem
-        data={item}
-        onPress={() => {
-          navigation.navigate("MovieDetail", { data: 'nn' });
-        }}
-      />
-    );
-  }
+
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
+      <Text style={{ fontSize: 20, color: blackColor, fontWeight: 'bold', alignSelf: 'center', margin: 16 }}>
+        {string("dashboard.title")}
+      </Text>
       <SearchBar
         searchText={searchText}
         setSearchText={setSearchText}
       />
-      <View style={styles.section}>
-        <Text style={styles.sectionHeader}>
-          {string("dashboard.batman")}
-        </Text>
-        {!isFetching &&
-          (movieArray && movieArray.length > 0 ? (
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              style={styles.listContainer}
-              data={movieArray}
-              renderItem={(item) => renderItem(item)}
-              keyExtractor={(item) => item.imdbID.toString()}
-            />
-          ) : (
-            <Text style={styles.emptyMessage}>
-              {string("dashboard.noData")}
-            </Text>
-          ))}
-      </View>
+      <ScrollView>
+        <>
+          <Section
+            heading={string("dashboard.batman")}
+            array={sectionOneArray}
+            navigation={navigation}
+            isFetching={isSectionOneFetching} />
+          <Section
+            heading={string("dashboard.harryPotter")}
+            array={sectionTwoArray}
+            navigation={navigation}
+            isFetching={isSectionTwoFetching} />
+            <Section
+            heading={string("dashboard.jamesBond")}
+            array={sectionThreeArray}
+            navigation={navigation}
+            isFetching={isSectionThreeFetching} />
+        </>
+      </ScrollView>
+
 
     </View>
 
@@ -87,24 +93,7 @@ function SearchBar({ searchText, setSearchText }) {
     </View>
   );
 }
-function CellItem({ data, onPress }) {
-  return (
-    <View style={styles.cellContainer}>
-      <TouchableOpacity
-        style={styles.itemContainer}
-        activeOpacity={1}
-        onPress={onPress}
-      >
-        <Text>
-          {data.Title}
-          </Text>
-        <Text>
-          {data.Year}
-          </Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -126,57 +115,25 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     marginHorizontal: 8
-  },
-  listContainer: {
-    flex: 1,
-    backgroundColor: white
-  },
-  cellContainer: {
-    marginBottom: 2,
-    width: 140,
-    flexDirection: "row",
-    backgroundColor: '#F1F3F6',
-    marginVertical: 8,
-    marginLeft: 16,
-    borderRadius: 10,
-    shadowColor: blackColor,
-    shadowOffset: {width:0,height:0},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 4
-  },
-  itemContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingLeft: 18,
-    paddingRight: 28,
-    paddingVertical: 20
-  },
-  section: {
-    height: 240
-  },
-  sectionHeader: {
-    color: blackColor,
-    fontSize: 18,
-    marginHorizontal: 16,
-    marginVertical: 8,
-    fontWeight: 'bold'
-  },
-  emptyMessage: {
-    color: '#A1A1A1',
-    fontSize: 12,
-    alignSelf: 'center',
-    marginTop: 100
   }
 });
 function mapStateToProps(state) {
   const { dashboardReducer } = state;
   const {
-    isFetching,
-    movieArray } = dashboardReducer;
+    isSectionOneFetching,
+    sectionOneArray,
+    isSectionTwoFetching,
+    sectionTwoArray,
+    isSectionThreeFetching,
+    sectionThreeArray
+  } = dashboardReducer;
   return {
-    isFetching,
-    movieArray
+    isSectionOneFetching,
+    sectionOneArray,
+    isSectionTwoFetching,
+    sectionTwoArray,
+    isSectionThreeFetching,
+    sectionThreeArray
   };
 }
 export default connect(mapStateToProps)(Dashboard);
