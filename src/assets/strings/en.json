@@ -6,9 +6,11 @@
       "forbidden": "Forbidden"
     },
     "dashboard": {
-      "title": "Country Finder",
+      "title": "Movie Buzz",
       "searchPlaceholder": "Search a movie/ Alternative Names",
       "batman": "Watch Batman movies",
-      "noData": "No data found"
+      "noData": "No data found",
+      "harryPotter": "Watch Harry Potter movies",
+      "jamesBond": "Watch James Bond movies"
     }
   }
