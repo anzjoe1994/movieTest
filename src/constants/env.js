@@ -1,22 +1,18 @@
 import Constants from 'expo-constants';
 
 export const prodUrl = "http://www.omdbapi.com/?";
-export const token = "tt3896198"; 
 export const apiKey = "46bdfa25";
 const ENV = {
   dev: {
     apiUrl: prodUrl,
-    token: token,
     apiKey: apiKey
   },
   staging: {
     apiUrl: prodUrl,
-    token: token,
     apiKey: apiKey
   },
   prod: {
     apiUrl: prodUrl,
-    token: token,
     apiKey: apiKey
   }
 };

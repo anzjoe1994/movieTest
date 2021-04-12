@@ -3,21 +3,24 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
-    Text,
-    Image
+    Text
 } from "react-native";
 import PropTypes from 'prop-types';
+import { Image } from "react-native-expo-image-cache";
 import {
     white,
     blackColor
 } from "constants/Colors";
 function CellItem({ data, onPress }) {
+    const preview = { uri: data.Poster };
+    const uri = data.Poster;
+
     return (
         <View style={styles.cellContainer}>
             <View style={styles.imageContainer}
             >
                 <Image
-                    source={{ uri: data.Poster }}
+                    {...{preview, uri}}
 
                     style={styles.image}
                     resizeMode={'stretch'}
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
 CellItem.propTypes = {
     data: PropTypes.object.isRequired,
     onPress: PropTypes.func.isRequired
-  };
+};
 
 
 export default CellItem;

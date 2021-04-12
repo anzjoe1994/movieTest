@@ -17,7 +17,7 @@ export function Section({ heading, array, navigation, isFetching }) {
             <CellItem
                 data={item}
                 onPress={() => {
-                    navigation.navigate("MovieDetail", { data: 'item' });
+                    navigation.navigate("MovieDetail", { data: item });
                 }}
             />
         )

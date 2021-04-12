@@ -7,10 +7,23 @@
     },
     "dashboard": {
       "title": "Movie Buzz",
-      "searchPlaceholder": "Search a movie/ Alternative Names",
       "batman": "Watch Batman movies",
       "noData": "No data found",
       "harryPotter": "Watch Harry Potter movies",
       "jamesBond": "Watch James Bond movies"
+    },
+    "search": {
+      "searchPlaceholder": "Search a movie/ Alternative Names",
+      "search": "Search"
+    },
+    "movieDetail": {
+      "title": "Movie Buzz",
+      "votes": "Votes",
+      "star": "★",
+      "rating": "Rating:",
+      "genre": "Genre:",
+      "director": "Director:",
+      "writer": "Writer:",
+      "desc": "Description:"
     }
   }
