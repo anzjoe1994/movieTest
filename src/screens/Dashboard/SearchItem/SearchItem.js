@@ -2,13 +2,13 @@ import React from "react";
 import {
     StyleSheet,
     View,
-    TouchableOpacity,
     Text
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 import PropTypes from 'prop-types';
 import { Image } from "react-native-expo-image-cache";
 import {
-    white,
     blackColor
 } from "constants/Colors";
 function SearchItem({ data, onPress }) {
@@ -16,12 +16,12 @@ function SearchItem({ data, onPress }) {
     const uri = data.Poster;
 
     return (
-        <View style={styles.cellContainer}>
-            <TouchableOpacity
-                style={styles.itemContainer}
-                activeOpacity={1}
-                onPress={onPress}
-            >
+        <TouchableOpacity 
+        activeOpacity={1}
+        onPress={onPress}
+        style={styles.cellContainer}>
+           
+            <View style={styles.itemContainer}>
                 <Image
                     {...{ preview, uri }}
 
@@ -37,10 +37,10 @@ function SearchItem({ data, onPress }) {
                         {data.Year}
                     </Text>
                 </View>
+</View>
 
 
-            </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
     );
 }
 const styles = StyleSheet.create({
@@ -70,6 +70,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: blackColor,
         fontWeight: 'bold'
+    },
+    button: {
+        top:0,
+        bottom:0,
+        left:0,
+        right:0,
+        position:'absolute',
+        backgroundColor: 'red'
     }
 });
 

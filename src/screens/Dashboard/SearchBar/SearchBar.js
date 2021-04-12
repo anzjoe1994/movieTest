@@ -5,11 +5,12 @@ import {
     TextInput,
     Text,
     Image,
-    TouchableOpacity,
     ActivityIndicator,
+    ScrollView,
     FlatList
 } from "react-native";
 import PropTypes from 'prop-types';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import images from "assets/images";
 import { string } from "assets/strings";
@@ -24,14 +25,16 @@ function SearchBar({ searchText, setSearchText, isFetching, searchData, searchAr
         return (
             <SearchItem
                 data={item}
-                onPress={()=>onPress(item)}
+                onPress={() => onPress(item)}
             />
         )
     }
     return (
         <>
-            <View activeOpacity={0.8} style={styles.searchContainer}>
-                <Image source={images.search} style={{width:25, height:25}} />
+            {searchText.length > 3 && (<View style={styles.background} />)}
+
+            <View style={styles.searchContainer}>
+                <Image source={images.search} style={{ width: 25, height: 25 }} />
                 <TextInput
                     style={styles.textInput}
                     placeholder={string("search.searchPlaceholder")}
@@ -44,6 +47,7 @@ function SearchBar({ searchText, setSearchText, isFetching, searchData, searchAr
                     {isFetching ?
                         (<ActivityIndicator style={styles.loader} size='small' color={"#522360"} />)
                         :
+
                         (<TouchableOpacity style={styles.button}
                             onPress={() => searchData(searchText)}>
                             <Text style={{ color: blackColor, fontWeight: 'bold' }}>
@@ -51,19 +55,25 @@ function SearchBar({ searchText, setSearchText, isFetching, searchData, searchAr
                             </Text>
                         </TouchableOpacity>)}
 
-                    {!isFetching && searchArray && searchArray.length > 0 ? (<FlatList
-                        showsVerticalScrollIndicator={false}
-                        style={styles.listContainer}
-                        contentContainerStyle={styles.contentContainerStyle}
-                        data={searchArray}
-                        renderItem={(item) => renderItem(item)}
-                        keyExtractor={(item) => item.imdbID.toString()}
-                    />) : (<Text style={styles.emptyMessage}>
+                    {!isFetching && searchArray && searchArray.length > 0 ? (
+                        <ScrollView style={{ flex: 1 }}
+                            keyboardShouldPersistTaps='always'>
+                            <FlatList
+                                scrollEnabled
+                                keyboardShouldPersistTaps='always'
+                                nestedScrollEnabled={true}
+                                showsVerticalScrollIndicator={false}
+                                style={styles.listContainer}
+                                contentContainerStyle={styles.contentContainerStyle}
+                                data={searchArray}
+                                renderItem={(item) => renderItem(item)}
+                                keyExtractor={(item) => item.imdbID.toString()}
+                            /></ScrollView>
+                    ) : (<Text style={styles.emptyMessage}>
                         {string("dashboard.noData")}
                     </Text>)}
                 </View>)}
             </View>
-            {searchText.length > 3 && (<View style={styles.background} />)}
         </>
 
     );
@@ -71,7 +81,7 @@ function SearchBar({ searchText, setSearchText, isFetching, searchData, searchAr
 const styles = StyleSheet.create({
 
     searchContainer: {
-        zIndex: 999,
+        zIndex: 1000,
         height: 40,
         justifyContent: "center",
         borderRadius: 15,
@@ -89,7 +99,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 8
     },
     background: {
-        zIndex: 998,
+        zIndex: 999,
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -99,7 +109,6 @@ const styles = StyleSheet.create({
         opacity: 0.4
     },
     viewContainer: {
-        zIndex: 998,
         position: 'absolute',
         top: 40,
         left: 10,
@@ -136,7 +145,8 @@ const styles = StyleSheet.create({
         marginTop: 100
     },
     contentContainerStyle: {
-        paddingBottom: 16
+        paddingBottom: 16,
+        flexGrow: 1
     }
 });
 
