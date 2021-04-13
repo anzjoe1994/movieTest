@@ -3,7 +3,7 @@ import api from "api";
 export const REQUEST_MOVIE_DETAIL_DATA = "REQUEST_MOVIE_DETAIL_DATA";
 export const RECEIVE_MOVIE_DETAIL_DATA = "RECEIVE_MOVIE_DETAIL_DATA";
 export const CLEAR_MOVIE_DETAIL_DATA = "CLEAR_MOVIE_DETAIL_DATA";
-
+//get movie detail data actions
 export function requestMovieDetailData() {
   return {
     type: REQUEST_MOVIE_DETAIL_DATA,
@@ -50,6 +50,7 @@ export function fetchMovieDetailDataIfNeeded(id) {
     }
   };
 }
+//cleanup
 export function clearMovieDetailData() {
   return {
     type: CLEAR_MOVIE_DETAIL_DATA,

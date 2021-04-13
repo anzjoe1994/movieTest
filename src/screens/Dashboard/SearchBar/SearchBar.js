@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
 });
 
 SearchBar.propTypes = {
-    text: PropTypes.string.isRequired,
-    setText: PropTypes.func.isRequired,
+    searchText: PropTypes.string.isRequired,
+    setSearchText: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired
 };
 

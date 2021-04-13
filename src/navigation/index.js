@@ -13,7 +13,7 @@ export default function Navigation() {
   }
 
   const Stack = createStackNavigator();
-
+//navigator
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

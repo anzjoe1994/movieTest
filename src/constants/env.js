@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 
-export const prodUrl = "http://www.omdbapi.com/?";
-export const apiKey = "46bdfa25";
+export const prodUrl = "http://www.omdbapi.com/?";  //omdbapi url
+export const apiKey = "46bdfa25"; //omdbapi key
 const ENV = {
   dev: {
     apiUrl: prodUrl,

@@ -6,7 +6,8 @@ import {
     FlatList
 } from "react-native";
 import { string } from "assets/strings";
-import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
+
+import { Shimmer as ShimmerPlaceHolder } from "component";
 import {
     blackColor
 } from "constants/Colors";
@@ -30,9 +31,9 @@ export function Section({ heading, array, navigation, isFetching }) {
             </Text>
             {isFetching ? (
                 <View style={styles.listContainer}>
-                    <ShimmerPlaceHolder style={styles.cellShimmerContainer} />
-                    <ShimmerPlaceHolder style={styles.cellShimmerContainer} />
-                    <ShimmerPlaceHolder style={styles.cellShimmerContainer} />
+                    <ShimmerPlaceHolder height={180} width={140} containerStyle={styles.cellShimmerContainer} />
+                    <ShimmerPlaceHolder height={180} width={140} containerStyle={styles.cellShimmerContainer} />
+                    <ShimmerPlaceHolder height={180} width={140} containerStyle={styles.cellShimmerContainer} />
                 </View>
             ) : (array && array.length > 0 ? (<FlatList
                 showsHorizontalScrollIndicator={false}
@@ -55,8 +56,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     cellShimmerContainer: {
-        height: 180,
-        width: 140,
+        
         marginVertical: 8,
         marginLeft: 16,
         borderRadius: 10,

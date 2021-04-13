@@ -10,8 +10,7 @@ import {
 } from "react-native";
 import images from "assets/images";
 import { Image as BlurImage } from "react-native-expo-image-cache";
-import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
-
+import { Shimmer as ShimmerPlaceHolder } from "component";
 import { connect } from "react-redux";
 
 import {
@@ -67,7 +66,7 @@ function MovieDetail({
               {!!movieDetail && !isMovieDetailFetching ? (<Text style={styles.normalText}>
                 {`${movieDetail.imdbVotes} ${string("movieDetail.votes")}`}
               </Text>) :
-                <ShimmerPlaceHolder  />
+                <ShimmerPlaceHolder height={20} width={100} containerStyle={styles.normalText}/>
               }
             </View>
             <View style={styles.nameContainer}>
@@ -80,7 +79,7 @@ function MovieDetail({
               {!!movieDetail && !isMovieDetailFetching ? (<Text style={[styles.textPadding, styles.normalText]}>
                 {`${string("movieDetail.rating")} ${movieDetail.imdbRating} ${string("movieDetail.star")}     ${movieDetail.Runtime}`}
               </Text>) :
-                <ShimmerPlaceHolder style={styles.textPadding} />
+                <ShimmerPlaceHolder height={20} width={100} containerStyle={styles.textPadding} />
               }
             </View>
 
@@ -89,19 +88,19 @@ function MovieDetail({
             {!!movieDetail &&  !isMovieDetailFetching ? (<Text style={[styles.textPadding, styles.normalText]}>
               {`${string("movieDetail.genre")} ${movieDetail.Genre}`}
             </Text>):
-                <ShimmerPlaceHolder  style={styles.textPadding}/>
+                <ShimmerPlaceHolder height={20} width={100} containerStyle={styles.textPadding}/>
               }
             {!!movieDetail &&  !isMovieDetailFetching ? (<Text style={[styles.textPadding, styles.normalText]}>
               {`${string("movieDetail.director")} ${movieDetail.Director}`}
             </Text>):
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={100} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
               }
             {!!movieDetail && !isMovieDetailFetching ?  (<Text style={[styles.textPadding, styles.normalText]}>
               {`${string("movieDetail.writer")} ${movieDetail.Writer}`}
             </Text>):
             <>
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
              </>
               }
             {!!movieDetail && !isMovieDetailFetching ?  (<Text style={[styles.textPadding, styles.normalText, { marginTop: 16 }]}>
@@ -109,12 +108,12 @@ function MovieDetail({
             </Text>):
             <>
                
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerBigPadding]}/>
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder  style={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerBigPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
               </>
               }
           </View>
