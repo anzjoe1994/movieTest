@@ -6,7 +6,11 @@ export const REQUEST_DASHBOARD_SECTION_TWO_DATA = "REQUEST_DASHBOARD_SECTION_TWO
 export const RECEIVE_DASHBOARD_SECTION_TWO_DATA = "RECEIVE_DASHBOARD_SECTION_TWO_DATA";
 export const REQUEST_DASHBOARD_SECTION_THREE_DATA = "REQUEST_DASHBOARD_SECTION_THREE_DATA";
 export const RECEIVE_DASHBOARD_SECTION_THREE_DATA = "RECEIVE_DASHBOARD_SECTION_THREE_DATA";
+export const REQUEST_DASHBOARD_SEARCH_DATA = "REQUEST_DASHBOARD_SEARCH_DATA";
+export const RECEIVE_DASHBOARD_SEARCH_DATA = "RECEIVE_DASHBOARD_SEARCH_DATA";
+export const SET_DASHBOARD_SEARCH_DATA_EMPTY = "RECEIVE_DASHBOARD_SEARCH_DATA";
 
+//SECTION ONE
 export function requestDashboardSectionOneData() {
   return {
     type: REQUEST_DASHBOARD_SECTION_ONE_DATA,
@@ -55,7 +59,7 @@ export function fetchDashboardSectionOneDataIfNeeded(text) {
 }
 
 
-
+//SECTION TWO
 export function requestDashboardSectionTwoData() {
   return {
     type: REQUEST_DASHBOARD_SECTION_TWO_DATA,
@@ -103,7 +107,7 @@ export function fetchDashboardSectionTwoDataIfNeeded(text) {
   };
 }
 
-
+//SECTION THREE
 export function requestDashboardSectionThreeData() {
   return {
     type: REQUEST_DASHBOARD_SECTION_THREE_DATA,
@@ -147,6 +151,61 @@ export function fetchDashboardSectionThreeDataIfNeeded(text) {
   return (dispatch, getState) => {
     if (shouldFetchDashboardSectionThreeData(getState())) {
       return dispatch(fetchDashboardSectionThreeData(text));
+    }
+  };
+}
+
+
+//SEARCH
+export function setDashboardSearchDataEmpty() {
+  return {
+    type: SET_DASHBOARD_SEARCH_DATA_EMPTY,
+  };
+}
+export function requestDashboardSearchData() {
+  return {
+    type: REQUEST_DASHBOARD_SEARCH_DATA,
+  };
+}
+
+export function receiveDashboardSearchData(data, error) {
+  
+
+  return {
+    type: RECEIVE_DASHBOARD_SEARCH_DATA,
+    data,
+    error
+  };
+}
+
+function fetchDashboardSearchData(text) {
+  return async (dispatch) => {
+    dispatch(requestDashboardSearchData());
+    try {
+      const json = await api.getSearchData(text);
+      
+      return dispatch(receiveDashboardSearchData(json, null));
+    } catch (error) {
+      return dispatch(receiveDashboardSearchData(null, error));
+    }
+  };
+}
+
+function shouldFetchDashboardSearchData(state) {
+  const dashboardData = state.dashboardReducer;
+  if (!dashboardData) {
+    return true;
+  } else if (dashboardData.isSearchFetching) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export function fetchDashboardSearchDataIfNeeded(text) {
+  return (dispatch, getState) => {
+    if (shouldFetchDashboardSearchData(getState())) {
+      return dispatch(fetchDashboardSearchData(text));
     }
   };
 }

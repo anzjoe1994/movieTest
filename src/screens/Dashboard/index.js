@@ -1,27 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   ScrollView
 } from "react-native";
 import { connect } from "react-redux";
 
-import { 
-  fetchDashboardSectionOneDataIfNeeded, 
-  fetchDashboardSectionTwoDataIfNeeded, 
-  fetchDashboardSectionThreeDataIfNeeded  
+import {
+  fetchDashboardSectionOneDataIfNeeded,
+  fetchDashboardSectionTwoDataIfNeeded,
+  fetchDashboardSectionThreeDataIfNeeded,
+  fetchDashboardSearchDataIfNeeded,
+  setDashboardSearchDataEmpty
 } from "action/dashboardAction";
 import { string } from "assets/strings";
 import {
   white,
-  windowBackgroundGrey,
   blackColor
 } from "constants/Colors";
 import { Section } from "./Section";
-
+import SearchBar from "./SearchBar"
 
 function Dashboard({
   dispatch,
@@ -31,26 +31,44 @@ function Dashboard({
   isSectionTwoFetching,
   sectionTwoArray,
   isSectionThreeFetching,
-  sectionThreeArray
+  sectionThreeArray,
+  isSearchFetching,
+  searchDataArray
 }) {
   const insets = useSafeAreaInsets();
-  const [searchText, setSearchText] = React.useState("");
+  const [searchText, setSearchText] = useState("");
 
-
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchDashboardSectionOneDataIfNeeded('batman'));
     dispatch(fetchDashboardSectionTwoDataIfNeeded('harry potter'));
     dispatch(fetchDashboardSectionThreeDataIfNeeded('james bond'));
   }, []);
-
+  function searchData(text) {
+    dispatch(fetchDashboardSearchDataIfNeeded(text));
+  }
+  function setSearchingData(text) {
+    setSearchText(text)
+    if (text.length <= 3) {
+      dispatch(setDashboardSearchDataEmpty());
+    }
+  }
+  function searchDataOnPress(item) {
+    setSearchText('')
+    dispatch(setDashboardSearchDataEmpty());
+    navigation.navigate("MovieDetail", { data: item });
+  }
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      <Text style={{ fontSize: 20, color: blackColor, fontWeight: 'bold', alignSelf: 'center', margin: 16 }}>
+      <Text style={styles.title}>
         {string("dashboard.title")}
       </Text>
       <SearchBar
         searchText={searchText}
-        setSearchText={setSearchText}
+        setSearchText={setSearchingData}
+        isFetching={isSearchFetching}
+        searchData={searchData}
+        searchArray={searchDataArray}
+        onPress={searchDataOnPress}
       />
       <ScrollView>
         <>
@@ -64,7 +82,7 @@ function Dashboard({
             array={sectionTwoArray}
             navigation={navigation}
             isFetching={isSectionTwoFetching} />
-            <Section
+          <Section
             heading={string("dashboard.jamesBond")}
             array={sectionThreeArray}
             navigation={navigation}
@@ -78,21 +96,6 @@ function Dashboard({
   );
 }
 
-function SearchBar({ searchText, setSearchText }) {
-  return (
-    <View activeOpacity={0.8} style={styles.searchContainer}>
-      {/* <Image source={images.search} /> */}
-      <TextInput
-        style={styles.textInput}
-        placeholder={string("dashboard.searchPlaceholder")}
-        value={searchText}
-        onChangeText={text => setSearchText(text)}
-        clearButtonMode={'always'}
-        selectionColor={'#AFA6CB'}
-      />
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -100,22 +103,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: white,
   },
-  searchContainer: {
-    height: 40,
-    justifyContent: "center",
-    borderRadius: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 16,
-    borderWidth: 1,
-    borderColor: windowBackgroundGrey,
-    marginBottom: 20,
-    paddingHorizontal: 16
-  },
-  textInput: {
-    flex: 1,
-    marginHorizontal: 8
+  title: {
+    fontSize: 20,
+    color: blackColor,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    margin: 16
   }
+
 });
 function mapStateToProps(state) {
   const { dashboardReducer } = state;
@@ -125,7 +120,9 @@ function mapStateToProps(state) {
     isSectionTwoFetching,
     sectionTwoArray,
     isSectionThreeFetching,
-    sectionThreeArray
+    sectionThreeArray,
+    isSearchFetching,
+    searchDataArray
   } = dashboardReducer;
   return {
     isSectionOneFetching,
@@ -133,7 +130,9 @@ function mapStateToProps(state) {
     isSectionTwoFetching,
     sectionTwoArray,
     isSectionThreeFetching,
-    sectionThreeArray
+    sectionThreeArray,
+    isSearchFetching,
+    searchDataArray
   };
 }
 export default connect(mapStateToProps)(Dashboard);
