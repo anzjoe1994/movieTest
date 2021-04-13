@@ -37,7 +37,7 @@ function Dashboard({
 }) {
   const insets = useSafeAreaInsets();
   const [searchText, setSearchText] = useState("");
-
+  const topValue = insets.top + 100
   useEffect(() => {
     dispatch(fetchDashboardSectionOneDataIfNeeded('batman'));
     dispatch(fetchDashboardSectionTwoDataIfNeeded('harry potter'));
@@ -69,6 +69,8 @@ function Dashboard({
         searchData={searchData}
         searchArray={searchDataArray}
         onPress={searchDataOnPress}
+        topValue={topValue}
+
       />
       <ScrollView>
         <>

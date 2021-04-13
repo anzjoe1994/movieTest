@@ -20,7 +20,7 @@ import {
     windowBackgroundGrey
 } from "constants/Colors";
 import SearchItem from '../SearchItem'
-function SearchBar({ searchText, setSearchText, isFetching, searchData, searchArray, onPress }) {
+function SearchBar({ searchText, setSearchText, isFetching, searchData, searchArray, onPress, topValue }) {
     function renderItem({ item }) {
         return (
             <SearchItem
@@ -43,7 +43,9 @@ function SearchBar({ searchText, setSearchText, isFetching, searchData, searchAr
                     clearButtonMode={'always'}
                     selectionColor={'#AFA6CB'}
                 />
-                {searchText.length > 3 && (<View style={styles.viewContainer}>
+                
+            </View>
+            {searchText.length > 3 && (<View style={[styles.viewContainer, {top:topValue}]}>
                     {isFetching ?
                         (<ActivityIndicator style={styles.loader} size='small' color={"#522360"} />)
                         :
@@ -56,8 +58,6 @@ function SearchBar({ searchText, setSearchText, isFetching, searchData, searchAr
                         </TouchableOpacity>)}
 
                     {!isFetching && searchArray && searchArray.length > 0 ? (
-                        <ScrollView style={{ flex: 1 }}
-                            keyboardShouldPersistTaps='always'>
                             <FlatList
                                 scrollEnabled
                                 keyboardShouldPersistTaps='always'
@@ -68,12 +68,11 @@ function SearchBar({ searchText, setSearchText, isFetching, searchData, searchAr
                                 data={searchArray}
                                 renderItem={(item) => renderItem(item)}
                                 keyExtractor={(item) => item.imdbID.toString()}
-                            /></ScrollView>
+                            />
                     ) : (<Text style={styles.emptyMessage}>
                         {string("dashboard.noData")}
                     </Text>)}
                 </View>)}
-            </View>
         </>
 
     );
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 8
     },
     background: {
-        zIndex: 999,
+        zIndex: 850,
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -109,10 +108,10 @@ const styles = StyleSheet.create({
         opacity: 0.4
     },
     viewContainer: {
+        zIndex: 1000,
         position: 'absolute',
-        top: 40,
-        left: 10,
-        right: 10,
+        left: 30,
+        right: 30,
         backgroundColor: white,
         height: 300
     },

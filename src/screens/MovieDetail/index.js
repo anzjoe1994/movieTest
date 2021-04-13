@@ -6,7 +6,8 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  Image
+  Image,
+  Dimensions
 } from "react-native";
 import images from "assets/images";
 import { Image as BlurImage } from "react-native-expo-image-cache";
@@ -33,6 +34,7 @@ function MovieDetail({
   const { data } = route.params;
   const preview = { uri: data.Poster };
   const uri = data.Poster;
+  const width = Dimensions.get('screen').width - 32
   useEffect(() => {
     dispatch(fetchMovieDetailDataIfNeeded(data.imdbID))
     return () => {
@@ -99,8 +101,8 @@ function MovieDetail({
               {`${string("movieDetail.writer")} ${movieDetail.Writer}`}
             </Text>):
             <>
-                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={width} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={width} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
              </>
               }
             {!!movieDetail && !isMovieDetailFetching ?  (<Text style={[styles.textPadding, styles.normalText, { marginTop: 16 }]}>
@@ -108,12 +110,12 @@ function MovieDetail({
             </Text>):
             <>
                
-                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerBigPadding]}/>
+                <ShimmerPlaceHolder height={20} width={width} containerStyle={[styles.textPadding, styles.shimmerBigPadding]}/>
+                <ShimmerPlaceHolder height={20} width={width} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
                 <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
-                <ShimmerPlaceHolder height={20} width={200} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={width} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={width} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
+                <ShimmerPlaceHolder height={20} width={width} containerStyle={[styles.textPadding, styles.shimmerSmallPadding]}/>
               </>
               }
           </View>
