@@ -13,14 +13,14 @@ const store = configureStore();
 export default function App() {
   const [loading, setLoading] = useState(true);
 
-
+//codepush
   useEffect(() => {
     async function fetchUpdate() {
       try {
         const updateAvailable = await Updates.checkForUpdateAsync()
         if (updateAvailable.isAvailable) {
           await Updates.fetchUpdateAsync()
-          await Updates.reloadAsync()
+          Updates.reloadAsync()
         }
         setLoading(false)
       } catch (error) {
@@ -33,7 +33,7 @@ export default function App() {
     return <View />
   }
   return (
-    <Provider store={store}>
+    <Provider store={store}> 
       <SafeAreaProvider>
         <Navigation />
         <StatusBar />

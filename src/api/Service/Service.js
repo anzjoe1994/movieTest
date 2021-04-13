@@ -24,7 +24,7 @@ export default class Service {
       throw new ServiceError({ code: 500 });
     }
   };
-
+//APIS
   async getSearchData(text) {
     try {
       const data = await this.api.get(``, { s:text });
