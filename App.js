@@ -14,23 +14,23 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
 //codepush
-  useEffect(() => {
-    async function fetchUpdate() {
-      try {
-        const updateAvailable = await Updates.checkForUpdateAsync()
-        if (updateAvailable.isAvailable) {
-          await Updates.fetchUpdateAsync()
-          Updates.reloadAsync()
-        }
-        setLoading(false)
-      } catch (error) {
-        setLoading(false)
-      }
+async function fetchUpdate() {
+  try {
+    const updateAvailable = await Updates.checkForUpdateAsync()
+    if (updateAvailable.isAvailable) {
+      await Updates.fetchUpdateAsync()
+      await Updates.reloadAsync()
     }
+    setLoading(false)
+  } catch (error) {
+    setLoading(false)
+  }
+}
+  useEffect(() => {
     fetchUpdate()
   }, []);
   if (loading) {
-    return <View />
+    return <View style={{flex:1}}/>
   }
   return (
     <Provider store={store}> 
